@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import Button from "../Button";
 import "./styles.css";
 
+import { useDispatch } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
+import { activityAdded } from "../../features/activitiesSlice";
+
 const Header = ({ user, className }) => {
   const [jsonData, setJsonData] = useState(null);
+  const dispatch = useDispatch();
 
   const convertCSVToJson = (csvData) => {
     const lines = csvData.split("\n");
@@ -38,6 +43,20 @@ const Header = ({ user, className }) => {
     reader.readAsText(file);
   };
 
+  const addDataToStore = () => {
+    jsonData.map((jd) =>
+      dispatch(
+        activityAdded({
+          user_id: jd.user_id,
+          date: jd.date,
+          steps: jd.steps,
+          distance_km: jd.distance_km,
+          active_minutes: jd.active_minutes,
+        })
+      )
+    );
+  };
+
   return (
     <header className={`flex space-between pl black-bg  ${className}`}>
       <h1 className="mont-font">Welcome {user}</h1>
@@ -48,12 +67,7 @@ const Header = ({ user, className }) => {
           accept=".csv"
           onChange={handleCSVInputChange}
         />
-        <Button
-          text="Upload"
-          onClick={() => {
-            console.log(jsonData);
-          }}
-        />
+        <Button text="Upload" onClick={addDataToStore} />
       </div>
     </header>
   );

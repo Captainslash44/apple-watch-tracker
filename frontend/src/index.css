@@ -65,6 +65,10 @@ button {
   margin: 0.2em;
 }
 
+.div-margin {
+  margin: 2em;
+}
+
 .box-shadow-blue {
   box-shadow: 2px 2px 2px #003092;
 }

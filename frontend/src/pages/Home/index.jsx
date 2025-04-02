@@ -9,9 +9,9 @@ const Home = () => {
       <Header user="Halim" />
       <div className="charts-container flex wrap">
         <div className="bar-chart">
-          <BarChart />
+          <BarChart className="div-margin" />
         </div>
-        <div>
+        <div className="div-margin">
           <h1>Hello</h1>
         </div>
       </div>
